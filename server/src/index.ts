@@ -1,6 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import { json, urlencoded } from 'body-parser';
+import knex from "./db/knex";
+import { Model } from "objection";
+import todos from "./routes/todos";
+
+Model.knex(knex);
 
 const app = express();
 
@@ -17,5 +22,8 @@ app.listen(port, () => {
 app.get("/", (_, res) => {
     res.send("Hello World")
 })
+
+// separate routes between files
+app.use("/todos", todos);
 
 export default app;
